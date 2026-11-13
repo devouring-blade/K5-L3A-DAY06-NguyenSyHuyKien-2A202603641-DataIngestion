@@ -1,6 +1,7 @@
 """Read and normalize source data. TODO: implement functions."""
 from pathlib import Path
 from .models import DocumentPage
+from pypdf import PdfReader
 
 
 def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
@@ -8,7 +9,17 @@ def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
 
     Detect and record pages with no text. OCR, when needed, is a separate step.
     """
-    raise NotImplementedError("TODO: load_pdf")
+    reader = PdfReader(path)
+    pages = []
+    for i, page in enumerate(reader.pages):
+        raw = page.extract_text() or ""
+
+        pages.append(DocumentPage(document_id= document_id,
+                                  source= source,
+                                  page= i+1,
+                                  text= raw,
+                                  metadata= {"empty" : not raw.strip()}))
+    return pages
 
 
 def normalize_text(text: str) -> str:
