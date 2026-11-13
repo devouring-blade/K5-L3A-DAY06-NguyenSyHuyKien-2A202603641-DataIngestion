@@ -1,47 +1,71 @@
-# Day 06 · Data Ingestion Engineering
+# Day 06 · Data Ingestion Engineering — bài làm cá nhân
 
-**Lab cá nhân** · **4 giờ** · **Dữ liệu tự chọn**
+Pipeline biến 2 chương sách *Principles of Data Science* (OpenStax, CC BY-NC-SA 4.0) thành kho tri thức truy xuất được, rồi so sánh 3 chiến lược chuẩn bị dữ liệu trên cùng corpus, model và bộ 20 câu hỏi.
 
-Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, rồi đo xem cách chuẩn bị dữ liệu nào hiệu quả nhất.
+Đề bài gốc: [GUIDE.md](GUIDE.md), [BENCHMARK.md](BENCHMARK.md), [RUBRIC.md](RUBRIC.md), [SUBMISSION.md](SUBMISSION.md). Thông tin học viên: [STUDENT.md](STUDENT.md).
 
-| 📄 Dữ liệu | 🧩 Chiến lược | 🎯 Benchmark |
-|---|---|---|
-| Tối thiểu **30 trang nội dung** | Tối thiểu **3 cấu hình** | Tối thiểu **20 câu hỏi** |
+## Tóm tắt thiết kế
 
-## Bắt đầu nhanh
-
-Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và hoàn thiện các hàm TODO, hoặc tự chọn vector store tương đương. Starter chỉ là khung: **bạn tự hiện thực pipeline và benchmark**.
-
-## 1. Xây pipeline
-
-![Đọc tài liệu, chuẩn hóa, chia chunk, tạo vector, lưu và kiểm tra](assets/ingestion-pipeline.svg)
-
-Chọn tài liệu được phép sử dụng; giữ **ID tài liệu, nguồn, trang/vị trí** và metadata phù hợp. Dùng embedding model thật qua API hoặc chạy local; lưu và truy xuất bằng pgvector, Qdrant, Chroma hoặc một store tương đương.
-
-## 2. So sánh và đánh giá
-
-![Ba chiến lược được đánh giá trên cùng corpus và benchmark dev/test](assets/benchmark-workflow.svg)
-
-Dùng cùng dữ liệu, model và câu hỏi cho cả ba cấu hình. Tách **15 câu dev / 5 câu test** trước khi chạy; chọn cấu hình trên dev, rồi đánh giá test sau khi cố định. Mỗi câu hỏi cần có đoạn bằng chứng và trang nguồn; thiết kế bộ câu hỏi và đánh giá theo [BENCHMARK.md](BENCHMARK.md).
-
-Đánh giá theo năm khía cạnh: **độ chính xác truy xuất**, **tính mạch lạc của chunk**, **tính hữu dụng của metadata**, **chất lượng grounding** và **tác động của chiến lược dữ liệu**. Giải thích lựa chọn bằng kết quả, ví dụ lỗi và các đánh đổi.
-
-## 3. Chuẩn bị bài nộp
-
-1. Chạy pipeline và lưu cấu hình, kết quả top-3, trace cùng nhãn đánh giá thủ công.
-2. Điền [thông tin học viên](STUDENT.md), [nhật ký thí nghiệm](artifacts/experiment_log.csv) và bản sao [mẫu báo cáo cá nhân](report/individual/MSSV_HoTen.md).
-3. Kiểm tra mã nguồn, cách chạy, manifest dữ liệu và checklist trong [SUBMISSION.md](SUBMISSION.md).
-
-## Tài liệu hướng dẫn
-
-| Bạn cần tìm | Tài liệu |
+| Thành phần | Lựa chọn |
 |---|---|
-| Setup baseline PostgreSQL + pgvector | [starter/README.md](starter/README.md) |
-| Các bước làm và cách tính chỉ số | [GUIDE.md](GUIDE.md) |
-| Tiến độ trong 4 giờ | [CHECKPOINTS.md](CHECKPOINTS.md) |
-| Năm tiêu chí benchmark và bộ câu hỏi | [BENCHMARK.md](BENCHMARK.md) |
-| Tiêu chí chấm điểm | [RUBRIC.md](RUBRIC.md) |
-| Quy tắc sử dụng dữ liệu, AI và API | [RULES.md](RULES.md) |
-| Cách nộp bài | [SUBMISSION.md](SUBMISSION.md) |
+| Corpus | Chương 2 (PDF trang 67–103) và chương 8 (PDF trang 387–413), tổng **64 trang nội dung** — xem [starter/data/manifest.json](starter/data/manifest.json) |
+| Đọc / chuẩn hóa | `pypdf` theo từng trang; bỏ header/footer lặp lại của OpenStax; Unicode NFKC, dấu nháy cong → ASCII; gộp khoảng trắng nhưng **giữ xuống dòng** |
+| Metadata mỗi chunk | `document_id`, `source`, `page` (trang PDF), `chapter` (lọc), `section`, `section_title` |
+| Embedding | OpenAI `text-embedding-3-small`, 1536 chiều, cùng model cho query và document |
+| Vector store | Chroma `PersistentClient` (thư mục `starter/chroma_db`), metric cosine, HNSW (approximate). Dùng thay pgvector vì máy không có Docker — GUIDE cho phép |
+| A | Cửa sổ cố định 500 ký tự, overlap 50, không lọc |
+| B | Cắt tại heading mục (X.Y) + gom câu đến tối đa 1000 ký tự, không cắt giữa câu, không lọc |
+| C | Giống hệt B (dùng chung index) + lọc `chapter` khi câu hỏi có filter — **chỉ khác B ở filter** |
+| Benchmark | [benchmark/questions.json](benchmark/questions.json): 20 câu, 15 dev / 5 test, 3 câu có filter (1 ở test), evidence đã kiểm chứng tự động trong văn bản chuẩn hóa |
 
-[data/format-example.json](data/format-example.json) chỉ minh họa định dạng, không phải corpus đủ điều kiện. Phần xử lý và benchmark do bạn tự hiện thực; không bắt buộc xây chatbot.
+Tiêu chí chọn chiến lược, chốt **trước khi xem test**: dev Evidence Hit@3 cao nhất → hòa thì dev Hit@1 → hòa tiếp thì chiến lược đơn giản hơn.
+
+## Cách chạy (Windows PowerShell)
+
+```powershell
+# 1. Môi trường (một lần)
+python -m venv venv
+venv\Scripts\Activate.ps1
+pip install -r starter/requirements.txt
+
+# 2. Khai báo key (không commit file .env)
+cd starter
+Copy-Item .env.example .env
+#   sửa .env:  OPENAI_API_KEY=sk-...   EMBEDDING_MODEL=text-embedding-3-small
+
+# 3. Chạy toàn bộ pipeline
+python -m src.run
+```
+
+Chạy lại lệnh ở bước 3 không tạo chunk trùng: chunk có ID ổn định, chunk nào nội dung không đổi thì không embed lại, chunk không còn tồn tại thì bị xóa. Pipeline tự kiểm tra điều này sau mỗi lần nạp và dừng nếu sai. Nếu API lỗi (sai key, hết quota), chương trình dừng và báo lỗi — không có vector giả.
+
+## Kết quả được lưu ở đâu
+
+| File | Nội dung |
+|---|---|
+| `starter/results/traces.jsonl` | Mỗi dòng = 1 câu × 1 chiến lược: top-3 chunk (ID, text, score, metadata), nhãn hit tự động |
+| `starter/results/summary.json` | Hit@1, Evidence Hit@3 (n/N) theo chiến lược × dev/test, tỷ lệ tuân thủ filter |
+| `starter/results/run_info.json` | Model, số chiều, phiên bản thư viện, tokens, chi phí, thời gian |
+| `starter/results/ingest_log.json` | Số chunk, phân bố độ dài, thời gian ingest, kiểm tra nạp lại |
+| `starter/results/corpus_report.json` | Trang rỗng, số dòng header/footer đã bỏ, số ký tự, danh sách mục |
+| `starter/results/audit/*.csv` | Bảng chấm thủ công: coherence (10 vị trí × 3), metadata và grounding (5 câu test × 3) |
+| `artifacts/experiment_log.csv` | Cấu hình, giả thuyết và kết quả A/B/C |
+| `report/individual/` | Báo cáo cá nhân |
+
+## Cấu trúc mã
+
+```
+starter/src/
+  ingestion.py   đọc PDF, bỏ header/footer, chuẩn hóa, gắn chapter/section theo manifest
+  chunking.py    fixed_size (A) và by_paragraph (B/C: theo mục + câu)
+  embeddings.py  OpenAI embeddings, đếm token, không fallback
+  store.py       Chroma: upsert theo ID, xóa chunk lỗi thời, search có filter
+  evaluation.py  Hit@1 / Evidence Hit@3, trace, tổng hợp n/N
+  run.py         nối các bước, lưu kết quả và mẫu bảng audit
+```
+
+`docker-compose.yml`, `init.sql`, `scripts/check_setup.py` thuộc starter pgvector gốc, không dùng trong bài này.
+
+## Sử dụng AI
+
+Mã nguồn, bộ câu hỏi và bản nháp báo cáo được viết với hỗ trợ của Claude (Anthropic). Học viên tự viết hàm `load_pdf` và chạy pipeline trên máy mình. Chi tiết cách kiểm tra ghi trong báo cáo cá nhân.

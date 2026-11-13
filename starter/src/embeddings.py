@@ -1,5 +1,8 @@
-"""Choose a real embedding provider (API or local) and implement this contract."""
+"""Real embedding provider: OpenAI Embeddings API."""
+import os
 from typing import Protocol
+
+from openai import OpenAI
 
 
 class Embedder(Protocol):
@@ -15,15 +18,40 @@ class Embedder(Protocol):
         ...
 
 
-class MyEmbedder:
-    """TODO: implement a provider adapter; do not silently fall back to mock vectors."""
+# Số chiều mặc định do OpenAI công bố cho từng model.
+_KNOWN_DIMS = {"text-embedding-3-small": 1536, "text-embedding-3-large": 3072}
 
-    def __init__(self, model_name: str) -> None:
-        self.model_name = model_name
-        raise NotImplementedError("TODO: initialize real embedder and dimensions")
+
+class MyEmbedder:
+    """OpenAI embeddings. Query và document dùng CÙNG model, không tiền tố.
+
+    Không có fallback: nếu API lỗi (sai key, hết quota, mất mạng) thì exception
+    được ném ra để pipeline dừng — không bao giờ thay bằng vector giả.
+    """
+
+    def __init__(self, model_name: str | None = None, batch_size: int = 100) -> None:
+        self.model_name = model_name or os.environ.get("EMBEDDING_MODEL", "")
+        if not self.model_name:
+            raise RuntimeError("Thiếu EMBEDDING_MODEL trong .env")
+        if not os.environ.get("OPENAI_API_KEY"):
+            raise RuntimeError("Thiếu OPENAI_API_KEY trong .env")
+        self.client = OpenAI()
+        self.batch_size = batch_size
+        self.total_tokens = 0          # cộng dồn để tính chi phí
+        self.dimensions = _KNOWN_DIMS.get(self.model_name) or len(self.embed_query("dimension probe"))
+
+    def _embed(self, texts: list[str]) -> list[list[float]]:
+        vectors: list[list[float]] = []
+        for i in range(0, len(texts), self.batch_size):
+            batch = texts[i:i + self.batch_size]
+            resp = self.client.embeddings.create(model=self.model_name, input=batch)
+            self.total_tokens += resp.usage.total_tokens
+            # API trả về đúng thứ tự, vẫn sắp theo index cho chắc chắn.
+            vectors.extend(d.embedding for d in sorted(resp.data, key=lambda d: d.index))
+        return vectors
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        raise NotImplementedError("TODO: embed_documents")
+        return self._embed(texts)
 
     def embed_query(self, question: str) -> list[float]:
-        raise NotImplementedError("TODO: embed_query")
+        return self._embed([question])[0]

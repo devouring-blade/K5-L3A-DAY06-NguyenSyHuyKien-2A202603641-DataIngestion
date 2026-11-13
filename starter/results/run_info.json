@@ -1,0 +1,62 @@
+{
+  "started_at_utc": "2026-11-13T15:51:08+00:00",
+  "finished_at_utc": "2026-11-13T15:51:35+00:00",
+  "python": "3.13.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "libraries": {
+    "pypdf": "7.0.1",
+    "chromadb": "1.5.9",
+    "openai": "3.50.0",
+    "python-dotenv": "1.2.4"
+  },
+  "embedding": {
+    "provider": "OpenAI",
+    "model": "text-embedding-3-small",
+    "dimensions": 1536,
+    "query_document_handling": "cùng model, không tiền tố, không chuẩn hóa thêm"
+  },
+  "vector_store": {
+    "name": "Chroma PersistentClient",
+    "path": "starter/chroma_db",
+    "collections": [
+      "day06_A",
+      "day06_B"
+    ],
+    "metric": "cosine",
+    "search": "approximate (HNSW)"
+  },
+  "tokens": {
+    "total": 79172,
+    "queries": 287
+  },
+  "estimated_cost_usd": 0.001583,
+  "query_seconds_all_strategies": 3.96,
+  "strategies": {
+    "A": {
+      "chunking": "fixed_size",
+      "chunk_size": 500,
+      "overlap": 50,
+      "index": "A",
+      "use_filter": false,
+      "hypothesis": "Baseline: cửa sổ cố định dễ cắt giữa câu/evidence, Hit@3 thấp hơn B."
+    },
+    "B": {
+      "chunking": "by_section_sentence",
+      "chunk_size": 1000,
+      "overlap": 0,
+      "index": "B",
+      "use_filter": false,
+      "hypothesis": "Cắt theo heading + ranh giới câu giữ trọn evidence nên Hit@3 và coherence cao hơn A."
+    },
+    "C": {
+      "chunking": "by_section_sentence",
+      "chunk_size": 1000,
+      "overlap": 0,
+      "index": "B",
+      "use_filter": true,
+      "hypothesis": "Giống B + lọc chapter khi câu hỏi có filter: loại chunk sai chương, tăng Hit cho câu filter."
+    }
+  },
+  "top_k": 3,
+  "selection_rule": "Chốt trước khi xem test: ưu tiên dev Evidence Hit@3 cao nhất; hòa thì dev Hit@1; hòa tiếp thì chiến lược đơn giản/ít chunk hơn."
+}

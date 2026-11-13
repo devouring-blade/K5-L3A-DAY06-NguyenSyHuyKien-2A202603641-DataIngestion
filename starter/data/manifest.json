@@ -1,5 +1,5 @@
 {
-    "page_counting_rule": "Chỉ tính các trang nội dung bài học của chương 2 và chương 8, từ trang mở đầu chương tới trang ngay trước mục 'Key Terms'. Loại bỏ phần cuối chương (Key Terms, Group Project, Chapter Review, Critical Thinking, Quantitative Problems, References) vì đó là thuật ngữ, bài tập và tài liệu tham khảo, không phải nội dung để tra cứu. Số trang trong manifest là số trang vật lý của file PDF (bắt đầu từ 1); số trang in trên sách = trang PDF - 10.",
+    "page_counting_rule": "Chỉ tính các trang nội dung bài học của chương 2 và chương 8, từ trang mở đầu chương tới trang ngay trước mục 'Key Terms'. Loại bỏ phần cuối chương (Key Terms, Group Project, Chapter Review, Critical Thinking, Quantitative Problems, References) vì đó là thuật ngữ, bài tập và tài liệu tham khảo, không phải nội dung để tra cứu. Số trang trong manifest là số trang vật lý của file PDF (bắt đầu từ 1); số trang in trên sách = trang PDF - 10. Không có trang nào trong khoảng được tính bị rỗng/không trích được chữ (kiểm tra bằng load_pdf).",
     "documents": [
         {
             "source_id": "pds-ch02",
@@ -20,7 +20,8 @@
                 112
             ],
             "printed_page_offset": 10,
-            "char_count": null
+            "char_count": 110828,
+            "char_count_note": "Số ký tự sau chuẩn hóa (bỏ header/footer, NFKC, gộp khoảng trắng) của các trang được tính; đo bằng load_corpus() với pypdf 7.0.1."
         },
         {
             "source_id": "pds-ch08",
@@ -41,7 +42,8 @@
                 420
             ],
             "printed_page_offset": 10,
-            "char_count": null
+            "char_count": 83266,
+            "char_count_note": "Số ký tự sau chuẩn hóa (bỏ header/footer, NFKC, gộp khoảng trắng) của các trang được tính; đo bằng load_corpus() với pypdf 7.0.1."
         }
     ]
 }

@@ -1,4 +1,4 @@
 strategy,chunking,chunk_size,overlap,metadata,filter,vectorizer,hypothesis,dev_hit1,dev_hit3,test_hit1,test_hit3,notes
-A,,,,,,,,,,,,
-B,,,,,,,,,,,,
-C,,,,,,,,,,,,
+A,fixed_size,500,50,"document_id,source,page,chapter,section,section_title",none,OpenAI text-embedding-3-small,"Baseline: cửa sổ cố định dễ cắt giữa câu/evidence, Hit@3 thấp hơn B.",8/15,10/15,3/5,3/5,"455 chunk, index A"
+B,by_section_sentence,1000,0,"document_id,source,page,chapter,section,section_title",none,OpenAI text-embedding-3-small,Cắt theo heading + ranh giới câu giữ trọn evidence nên Hit@3 và coherence cao hơn A.,11/15,15/15,3/5,4/5,"242 chunk, index B"
+C,by_section_sentence,1000,0,"document_id,source,page,chapter,section,section_title",chapter (khi câu hỏi có filter),OpenAI text-embedding-3-small,"Giống B + lọc chapter khi câu hỏi có filter: loại chunk sai chương, tăng Hit cho câu filter.",11/15,15/15,3/5,4/5,"242 chunk, index B"

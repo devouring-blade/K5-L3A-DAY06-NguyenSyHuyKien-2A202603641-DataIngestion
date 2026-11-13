@@ -1,4 +1,5 @@
-# Core setup and PDF parsing. Choose and install an embedding SDK separately.
-psycopg[binary]==3.3.8
-pypdf>=5,<7
-python-dotenv>=1,<2
+# Phiên bản đã dùng khi chạy bài (Python 3.13, Windows).
+pypdf==7.0.1
+chromadb==1.5.9
+openai==3.50.0
+python-dotenv==1.2.4

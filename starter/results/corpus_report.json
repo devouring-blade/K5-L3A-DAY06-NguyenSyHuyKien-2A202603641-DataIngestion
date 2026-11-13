@@ -1,0 +1,35 @@
+{
+  "documents": [
+    {
+      "source_id": "pds-ch02",
+      "pages_counted": 37,
+      "pages_loaded": 37,
+      "empty_pages": [],
+      "furniture_lines_removed": 56,
+      "char_count_normalized": 110828,
+      "sections": {
+        "2.0": "Introduction",
+        "2.1": "Overview of Data Collection Methods",
+        "2.2": "Survey Design and Implementation",
+        "2.3": "Web Scraping and Social Media Data Collection",
+        "2.4": "Data Cleaning and Preprocessing",
+        "2.5": "Handling Large Datasets"
+      }
+    },
+    {
+      "source_id": "pds-ch08",
+      "pages_counted": 27,
+      "pages_loaded": 27,
+      "empty_pages": [],
+      "furniture_lines_removed": 41,
+      "char_count_normalized": 83266,
+      "sections": {
+        "8.0": "Introduction",
+        "8.1": "Ethics in Data Collection",
+        "8.2": "Ethics in Data Analysis and Modeling",
+        "8.3": "Ethics in Visualization and Reporting"
+      }
+    }
+  ],
+  "load_seconds": 13.96
+}

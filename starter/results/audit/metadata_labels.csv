@@ -1,0 +1,46 @@
+strategy,question_id,rank,chunk_id,document_id,source,page,chapter,section,filter,metadata_complete_and_correct,error_note,labeled_by
+A,q16,1,A:pds-ch08:p389:2,pds-ch08,data/principles-data-science.pdf,389,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q16,2,A:pds-ch08:p394:8,pds-ch08,data/principles-data-science.pdf,394,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q16,3,A:pds-ch08:p401:2,pds-ch08,data/principles-data-science.pdf,401,8,8.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q17,1,A:pds-ch02:p94:0,pds-ch02,data/principles-data-science.pdf,94,2,2.4,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q17,2,A:pds-ch08:p403:3,pds-ch08,data/principles-data-science.pdf,403,8,8.2,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q17,3,A:pds-ch02:p94:3,pds-ch02,data/principles-data-science.pdf,94,2,2.4,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q18,1,A:pds-ch02:p77:0,pds-ch02,data/principles-data-science.pdf,77,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q18,2,A:pds-ch02:p76:7,pds-ch02,data/principles-data-science.pdf,76,2,2.2,null,no,section ghi 2.2 nhưng thực tế 2.3,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q18,3,A:pds-ch02:p76:4,pds-ch02,data/principles-data-science.pdf,76,2,2.2,null,no,section ghi 2.2 nhưng thực tế 2.3,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q19,1,A:pds-ch08:p405:5,pds-ch08,data/principles-data-science.pdf,405,8,8.2,null,no,section ghi 8.2 nhưng thực tế 8.3,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q19,2,A:pds-ch08:p405:4,pds-ch08,data/principles-data-science.pdf,405,8,8.2,null,no,section ghi 8.2 nhưng thực tế 8.3,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q19,3,A:pds-ch08:p405:2,pds-ch08,data/principles-data-science.pdf,405,8,8.2,null,no,section ghi 8.2 nhưng thực tế 8.3,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q20,1,A:pds-ch02:p74:5,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q20,2,A:pds-ch02:p74:4,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+A,q20,3,A:pds-ch02:p74:7,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q16,1,B:pds-ch08:p389:1,pds-ch08,data/principles-data-science.pdf,389,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q16,2,B:pds-ch08:p388:3,pds-ch08,data/principles-data-science.pdf,388,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q16,3,B:pds-ch08:p390:2,pds-ch08,data/principles-data-science.pdf,390,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q17,1,B:pds-ch02:p94:0,pds-ch02,data/principles-data-science.pdf,94,2,2.4,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q17,2,B:pds-ch02:p94:2,pds-ch02,data/principles-data-science.pdf,94,2,2.4,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q17,3,B:pds-ch02:p94:1,pds-ch02,data/principles-data-science.pdf,94,2,2.4,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q18,1,B:pds-ch02:p77:0,pds-ch02,data/principles-data-science.pdf,77,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q18,2,B:pds-ch02:p76:2,pds-ch02,data/principles-data-science.pdf,76,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q18,3,B:pds-ch02:p77:2,pds-ch02,data/principles-data-science.pdf,77,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q19,1,B:pds-ch08:p405:1,pds-ch08,data/principles-data-science.pdf,405,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q19,2,B:pds-ch08:p405:2,pds-ch08,data/principles-data-science.pdf,405,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q19,3,B:pds-ch08:p408:0,pds-ch08,data/principles-data-science.pdf,408,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q20,1,B:pds-ch02:p74:2,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q20,2,B:pds-ch02:p74:1,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+B,q20,3,B:pds-ch02:p73:3,pds-ch02,data/principles-data-science.pdf,73,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q16,1,B:pds-ch08:p389:1,pds-ch08,data/principles-data-science.pdf,389,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q16,2,B:pds-ch08:p388:3,pds-ch08,data/principles-data-science.pdf,388,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q16,3,B:pds-ch08:p390:2,pds-ch08,data/principles-data-science.pdf,390,8,8.1,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q17,1,B:pds-ch08:p403:2,pds-ch08,data/principles-data-science.pdf,403,8,8.2,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q17,2,B:pds-ch08:p403:3,pds-ch08,data/principles-data-science.pdf,403,8,8.2,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q17,3,B:pds-ch08:p405:4,pds-ch08,data/principles-data-science.pdf,405,8,8.3,"{""chapter"": 8}",yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q18,1,B:pds-ch02:p77:0,pds-ch02,data/principles-data-science.pdf,77,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q18,2,B:pds-ch02:p76:2,pds-ch02,data/principles-data-science.pdf,76,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q18,3,B:pds-ch02:p77:2,pds-ch02,data/principles-data-science.pdf,77,2,2.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q19,1,B:pds-ch08:p405:1,pds-ch08,data/principles-data-science.pdf,405,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q19,2,B:pds-ch08:p405:2,pds-ch08,data/principles-data-science.pdf,405,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q19,3,B:pds-ch08:p408:0,pds-ch08,data/principles-data-science.pdf,408,8,8.3,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q20,1,B:pds-ch02:p74:2,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q20,2,B:pds-ch02:p74:1,pds-ch02,data/principles-data-science.pdf,74,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
+C,q20,3,B:pds-ch02:p73:3,pds-ch02,data/principles-data-science.pdf,73,2,2.2,null,yes,,Script kiểm tra đối chiếu với trang nguồn + AI đọc lại; học viên duyệt
