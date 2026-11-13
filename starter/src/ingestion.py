@@ -11,15 +11,15 @@ def load_pdf(path: Path, document_id: str, source: str) -> list[DocumentPage]:
     """
     reader = PdfReader(path)
     pages = []
-    for i, page in enumerate(reader.pages):
-        raw = page.extract_text() or ""
-
+    for i, pdf_page in enumerate(reader.pages):
+        raw = pdf_page.extract_text() or ""
         pages.append(DocumentPage(document_id= document_id,
                                   source= source,
                                   page= i+1,
                                   text= raw,
                                   metadata= {"empty" : not raw.strip()}))
     return pages
+
 
 
 def normalize_text(text: str) -> str:
